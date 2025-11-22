@@ -12,16 +12,10 @@ public class Server {
         this.port = port;
     }
 
-
-    public static Server getInstance() {
+    public static Server getInstance(){
         if (instance == null)
-            instance = new Server("local", 3000);
+            instance = new Server("local",3000);
         return instance;
     }
 
-    public static Server egetInstance() {
-
-        instance = new Server("local", 3000);
-        return instance;
-    }
 }

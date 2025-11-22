@@ -14,15 +14,5 @@ public class Main {
         System.out.println(server);
         System.out.println(server1);
         System.out.println(server2);
-
-
-        // db = new db("")
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Server.getInstance());
-        }
-        System.out.println("-----------------------------------");
-        for (int i = 0; i < 10; i++) {
-            System.out.println(Server.egetInstance());
-        }
     }
 }
