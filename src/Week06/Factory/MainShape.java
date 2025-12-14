@@ -29,3 +29,48 @@ public class MainShape {
 
 }
 
+class A {
+    Shape s;
+
+    public A() {
+        this.s = new Circle();
+        this.s =  ShapeFactory.create("circle") ;
+    }
+}
+
+class B {
+    Shape s;
+
+    public B() {
+        this.s = new Circle();
+        this.s =  ShapeFactory.create("circle") ;
+    }
+}
+
+class C {
+    Shape s;
+
+    public C() {
+        this.s = new Circle();
+        this.s =  ShapeFactory.create("circle") ;
+    }
+}
+
+class D {
+    Shape s;
+
+    public D() {
+        this.s = new Circle();
+        this.s =  ShapeFactory.create("circle") ;
+    }
+}
+
+class F {
+    Shape s;
+
+    public F() {
+        this.s = new Circle();
+        this.s =  ShapeFactory.create("circle") ;
+    }
+}
+

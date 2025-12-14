@@ -2,8 +2,7 @@ package Week06.Factory;
 
 
 class ShapeFactory {
-
-
+    static int D_lINE = 2;
 
     public static Shape create(String type) {
 
@@ -11,14 +10,13 @@ class ShapeFactory {
             case "rectangle" -> new Rectangle();
             case "triangle" -> new Triangle();
             case "circle" -> new Circle();
+            case "line" -> new Line();
             default -> throw new IllegalArgumentException();
         };
-
 
     }
 
     public static Shape createByGroup(String type, String group) {
-
 
         return switch (group.toLowerCase()) {
             case "rectangle" -> switch (type.toLowerCase()) {
@@ -47,6 +45,8 @@ class ShapeFactory {
 
 
 public abstract class Shape {
+    int linePx = ShapeFactory.D_lINE;
+
 
     public abstract void draw();
 
@@ -54,7 +54,22 @@ public abstract class Shape {
 
 
 class Circle extends Shape {
+    int linePx = ShapeFactory.D_lINE;
+    int r;
 
+    public Circle(int linePx) {
+        this.linePx = linePx;
+    }
+
+    public Circle(int linePx, int r) {
+        this.linePx = linePx;
+        this.r = r;
+    }
+
+    public Circle() {
+        this.r = 2;
+        this.linePx = 3;
+    }
 
     @Override
     public void draw() {
