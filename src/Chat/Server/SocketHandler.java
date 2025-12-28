@@ -84,7 +84,12 @@ public class SocketHandler extends Thread implements NotificationObserver {
                 "Invalid email. Please enter again:",
                 this::isValidEmail
         );
-
+        String roleInput = askUntilValid(
+                "Select user type (REGULAR / ADMIN):l:",
+                "Invalid type. Please enter REGULAR or ADMIN:",
+                this::isValidRole
+        );
+        ClientRole role = ClientFactory.createClient(roleInput);
         out.println("Would you like to receive notifications? (YES/NO)");
         String ans = in.readLine();
         boolean wantsNotifications = ans != null && ans.equalsIgnoreCase("YES");
@@ -94,6 +99,7 @@ public class SocketHandler extends Thread implements NotificationObserver {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setWantsNotifications(wantsNotifications)
+                .setRole(role)
                 .build();
     }
 
@@ -115,16 +121,22 @@ public class SocketHandler extends Thread implements NotificationObserver {
         return email != null && email.contains("@") && email.indexOf('@') > 0;
     }
 
+    private boolean isValidRole(String roleInput) {
+        return roleInput == null ||
+                !(roleInput.equalsIgnoreCase("REGULAR") || roleInput.equalsIgnoreCase("ADMIN"));
+    }
+
     private void handleChatLoop() throws IOException {
         String line;
         while ((line = in.readLine()) != null) {
+
             if ("exit".equalsIgnoreCase(line.trim())) {
                 sendMessage("You have left the chat.");
                 break;
             }
             String msg = getClientLabel() + ": " + line;
             System.out.println(msg);
-            server.broadcast(msg, this);
+            clientInfo.getRole().onMessage(line, server, this);
         }
     }
 

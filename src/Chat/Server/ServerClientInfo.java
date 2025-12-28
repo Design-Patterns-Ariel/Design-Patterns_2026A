@@ -6,14 +6,18 @@ public class ServerClientInfo {
     private final String lastName;
     private final String email;
     private final boolean wantsNotifications;
+    private final ClientRole role;
 
     private ServerClientInfo(Builder builder) {
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.email = builder.email;
         this.wantsNotifications = builder.wantsNotifications;
+        this.role = builder.role;
     }
-
+    public ClientRole getRole() {
+        return role;
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -42,6 +46,7 @@ public class ServerClientInfo {
         private String lastName;
         private String email;
         private boolean wantsNotifications;
+        private ClientRole role;
 
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
@@ -62,17 +67,20 @@ public class ServerClientInfo {
             this.wantsNotifications = wantsNotifications;
             return this;
         }
-
+        public Builder setRole(ClientRole role) {
+            this.role = role;
+            return this;
+        }
         public ServerClientInfo build() {
-            if (firstName == null || firstName.trim().isEmpty()) {
-                throw new IllegalArgumentException("First name is invalid");
-            }
-            if (lastName == null || lastName.trim().isEmpty()) {
-                throw new IllegalArgumentException("Last name is invalid");
-            }
-            if (email == null || email.trim().isEmpty() || !email.contains("@")) {
-                throw new IllegalArgumentException("Email is invalid");
-            }
+            if (firstName == null || firstName.trim().isEmpty())
+                throw new IllegalArgumentException("Invalid first name");
+            if (lastName == null || lastName.trim().isEmpty())
+                throw new IllegalArgumentException("Invalid last name");
+            if (email == null || !email.contains("@"))
+                throw new IllegalArgumentException("Invalid email");
+            if (role == null)
+                throw new IllegalArgumentException("Client role is missing");
+
             return new ServerClientInfo(this);
         }
     }
