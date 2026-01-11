@@ -56,7 +56,6 @@ public class Server {
                 SocketHandler handler = new SocketHandler(socket, this);
                 handler.start();
             }
-
         } catch (IOException e) {
             System.out.println("Server error: " + e.getMessage());
             notifyAllObservers("System error: server shutting down.");
